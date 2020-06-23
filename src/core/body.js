@@ -5,10 +5,47 @@ import Portfolio from "../Images/portfolio.PNG";
 import Youtube from "../Images/youtube.PNG";
 import Img1 from "../Images/img1.png";
 import Hitesh from "../Images/hiteshbootcamp.PNG";
+import Avatar from "../Images/people.png";
 
 function body(props) {
+  
   return (
     <div>
+      <header className="masthead d-flex justify-content-center">
+        <div className="container d-flex flex-column align-items-center masthead-content text-white">
+          <img
+            className="masthead-avatar mb-4"
+            src={Avatar}
+            alt="Avatar"
+            style={{ backgroundColor: "#DAE0E2" }}
+          />
+          <h1 className="masthead-heading text-uppercase">Welcome coders!!!</h1>
+          <div className="divider d-flex flex-row mb-4">
+            <div className="custom-line-white"></div>
+            <div className="custom-icon mx-3">
+              <i className="fa fa-star" aria-hidden="true"></i>
+              <i className="fa fa-star" aria-hidden="true"></i>
+              <i className="fa fa-star" aria-hidden="true"></i>
+            </div>
+            <div className="custom-line-white"></div>
+          </div>
+          <div className="masthead-skills">
+            <p className="lead text-skills">
+              .Net Developer - Web designer - Mern developer
+            </p>
+          </div>
+          <div className="masthead-contact">
+            <p className="lead text-contact">
+              <a
+                className="btn btn-outline-light d-sm-block d-md-none"
+                href="tel:8158914106"
+              >
+                CALL ME
+              </a>
+            </p>
+          </div>
+        </div>
+      </header>
       <section className="portfolio pt-4" id="portfolio">
         <div className="container d-flex flex-column align-items-center portfolio-content text-dark pt-4 pb-4">
           <h1 className="portfolio-heading text-uppercase">Portfolio</h1>

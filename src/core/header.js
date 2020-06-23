@@ -1,7 +1,9 @@
 import React from "react";
 import Avatar from "../Images/people.png";
-import { HideToggler,HandleBrandToggeler } from "../script";
+import { HideToggler, HandleBrandToggeler } from "../script";
+import { isAuthenticated } from "../Authentication/authhelpers/authhelper";
 function header(props) {
+
   return (
     <div>
       <nav
@@ -13,10 +15,10 @@ function header(props) {
           <a
             className="navbar-brand font"
             id="brand"
-            href="#root"
+            href="/"
             data-nav-section="root"
-            onClick={()=>{
-                 HideToggler()
+            onClick={() => {
+              HideToggler()
             }}
           >
             Satyam sinha
@@ -44,7 +46,7 @@ function header(props) {
                   className="nav-link"
                   href="#about"
                   data-nav-section="about"
-                  onClick={()=>{
+                  onClick={() => {
                     HideToggler()
                   }}
                 >
@@ -56,45 +58,38 @@ function header(props) {
                   Contact<span className="sr-only">(current)</span>
                 </a>
               </li>
+              {
+                !isAuthenticated() && (
+                  <li className="nav-item active">
+                    <a className="nav-link" href="/signin" onClick={HideToggler}>
+                      Signin<span className="sr-only">(current)</span>
+                    </a>
+                  </li>
+                )
+              }
+              {
+                !isAuthenticated() && (
+                  <li className="nav-item active">
+                    <a className="nav-link" href="/signup" onClick={HideToggler}>
+                      Signup<span className="sr-only">(current)</span>
+                    </a>
+                  </li>
+                )
+              }
+              {
+                isAuthenticated() && (
+                  <li className="nav-item active">
+                    <a className="nav-link" href="#contact" onClick={HideToggler}>
+                      Signout<span className="sr-only">(current)</span>
+                    </a>
+                  </li>
+                )
+              }
+
             </ul>
           </div>
         </div>
       </nav>
-      <header className="masthead d-flex justify-content-center">
-        <div className="container d-flex flex-column align-items-center masthead-content text-white">
-          <img
-            className="masthead-avatar mb-4"
-            src={Avatar}
-            alt="Avatar"
-            style={{ backgroundColor: "#DAE0E2" }}
-          />
-          <h1 className="masthead-heading text-uppercase">Welcome coders!!!</h1>
-          <div className="divider d-flex flex-row mb-4">
-            <div className="custom-line-white"></div>
-            <div className="custom-icon mx-3">
-              <i className="fa fa-star" aria-hidden="true"></i>
-              <i className="fa fa-star" aria-hidden="true"></i>
-              <i className="fa fa-star" aria-hidden="true"></i>
-            </div>
-            <div className="custom-line-white"></div>
-          </div>
-          <div className="masthead-skills">
-            <p className="lead text-skills">
-              .Net Developer - Web designer - Mern developer
-            </p>
-          </div>
-          <div className="masthead-contact">
-            <p className="lead text-contact">
-              <a
-                className="btn btn-outline-light d-sm-block d-md-none"
-                href="tel:8158914106"
-              >
-                CALL ME
-              </a>
-            </p>
-          </div>
-        </div>
-      </header>
     </div>
   );
 }
