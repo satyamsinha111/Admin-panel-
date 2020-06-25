@@ -20,4 +20,4 @@ const PublicRoute = ({ component: Component, ...rest }) => {
 }
 
 
-export default props
+export default PublicRoute

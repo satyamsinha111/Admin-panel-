@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Header from '../core/header';
 import Footer from '../core/footer';
 import { userSignup } from "./authhelpers/authhelper"
+import { Redirect } from 'react-router-dom';
+
+ 
+
 let Signup = (props) => {
     let [firstName, setFirstName] = useState("")
     let [secondName, setSecondName] = useState("")
@@ -13,7 +17,7 @@ let Signup = (props) => {
     let [success, setSuccess] = useState(false)
     let [error, setError] = useState("")
     let [loading, setLoading] = useState(false)
-
+    
 
     //Handles first name
     let handleFirstName = (event) => {
@@ -99,12 +103,17 @@ let Signup = (props) => {
                     setEmailAddress("")
                 }
             )
-            .catch()
+            .catch(error=>console.log("!!!SIGNUP ERROR!!!!!!!!!!!!!!!!!!!!"))
+            setInterval(() => {
+                setLoading(false)
+                setSuccess(false)
+                setError(false)
+            }, 3000);
     }
 
     return (
         <div>
-            <Header />
+            <Header/>
             <div style={{ marginTop: "200px", marginBottom: "50px" }}>
                 <h1 className="portfolio-heading text-uppercase text-center">Signup</h1>
                 <form className="container">
@@ -124,6 +133,7 @@ let Signup = (props) => {
                         success && (
                             <div class="alert alert-success" role="alert">
                                 Signed up successfully
+                                <Redirect to="/" />
                             </div>
                         )
                     }

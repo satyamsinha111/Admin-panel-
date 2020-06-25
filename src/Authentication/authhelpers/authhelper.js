@@ -60,7 +60,7 @@ export const Signout = (next) => {
 
 export const AuthenticateUser = (data, next) => {
     if (typeof window !== undefined) {
-        localStorage.setItem("usertoken", data)
+        localStorage.setItem("usertoken",JSON.stringify(data))
         next();
     }
 }
@@ -70,7 +70,7 @@ export const isAuthenticated = () => {
         return false
     }
     if (localStorage.getItem("usertoken")) {
-        return JSON.stringify(localStorage.getItem("usertoken"))
+        return JSON.parse(localStorage.getItem("usertoken"))
     }
     else {
         return false

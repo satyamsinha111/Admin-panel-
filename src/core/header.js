@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "../Images/people.png";
 import { HideToggler, HandleBrandToggeler } from "../script";
-import { isAuthenticated } from "../Authentication/authhelpers/authhelper";
-function header(props) {
-
+import { isAuthenticated,Signout } from "../Authentication/authhelpers/authhelper";
+import { Redirect, Link } from "react-router-dom";
+function Header(props) {
+  let [redirect,setRedirect]=useState(false)
   return (
     <div>
+      {
+        redirect && <Redirect to="/" />
+      }
       <nav
         className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark p-4"
         id="navbar"
@@ -61,27 +65,31 @@ function header(props) {
               {
                 !isAuthenticated() && (
                   <li className="nav-item active">
-                    <a className="nav-link" href="/signin" onClick={HideToggler}>
+                    <Link className="nav-link" to="/signin">
                       Signin<span className="sr-only">(current)</span>
-                    </a>
+                    </Link>
                   </li>
                 )
               }
               {
                 !isAuthenticated() && (
                   <li className="nav-item active">
-                    <a className="nav-link" href="/signup" onClick={HideToggler}>
+                    <Link className="nav-link" to="/signup" onClick={HideToggler}>
                       Signup<span className="sr-only">(current)</span>
-                    </a>
+                    </Link>
                   </li>
                 )
               }
               {
                 isAuthenticated() && (
                   <li className="nav-item active">
-                    <a className="nav-link" href="#contact" onClick={HideToggler}>
+                    <Link className="nav-link" onClick={()=>{
+                      Signout(()=>{
+                        setRedirect(true)
+                      })
+                    }}>
                       Signout<span className="sr-only">(current)</span>
-                    </a>
+                    </Link>
                   </li>
                 )
               }
@@ -94,4 +102,4 @@ function header(props) {
   );
 }
 
-export default header;
+export default Header;
