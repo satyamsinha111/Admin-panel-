@@ -1,10 +1,7 @@
 import React from "react";
 import "../script";
 import "../style.css";
-import Portfolio from "../Images/portfolio.PNG";
-import Youtube from "../Images/youtube.PNG";
 import Img1 from "../Images/img1.png";
-import Hitesh from "../Images/hiteshbootcamp.PNG";
 import Avatar from "../Images/people.png";
 
 function body(props) {

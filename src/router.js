@@ -1,12 +1,13 @@
 import React, { useState } from "react"
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom"
-import Dashboard from "./Dashboard/dashboard"
 import Home from "./core/home"
 import Signin from "./Authentication/Signin"
 import Signup from "./Authentication/Signup"
 import PublicRouteRestriction from "./Authentication/authhelpers/restrictpublicroute"
 import PrivateRoute from "./Authentication/authhelpers/privateroutes"
 import PublicRoute from "./Authentication/authhelpers/publicroutes"
+import AdminPanel from "./Users/Admin-Panel"
+import UserPanel from "./Users/User-Panel"
 
 
 function router(props) {
@@ -16,12 +17,10 @@ function router(props) {
                 <Route exact path="/">
                     <Home />
                 </Route>
-                <Route path="/signin">
-                    <Signin />
-                </Route>
-                <Route path="/signup">
-                    <Signup />
-                </Route>
+                <PublicRouteRestriction path="/signup" component={Signup} />
+                <PublicRouteRestriction path="/signin" component={Signin} />
+                <PrivateRoute path="/admin" component={AdminPanel} />
+                <PublicRoute path="/user" component={UserPanel} />
             </Switch>
         </Router>
     );
