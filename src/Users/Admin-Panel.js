@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -11,14 +11,18 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import MailIcon from "@material-ui/icons/Mail";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import avatar from "../Images/people.png";
 import { Signout } from "../Authentication/authhelpers/authhelper";
-const drawerWidth = 214;
+const drawerWidth = 220;
+import Portfolio from "./Admin-Components/Portfolio";
+import ManagePortfolio from "./Admin-Components/Manage-Product";
+import Product from "./Admin-Components/Product";
+import ManageProduct from "./Admin-Components/Manage-Product";
+import User from "./Admin-Components/User";
+import ManageUser from "./Admin-Components/Manage-User";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,6 +63,75 @@ function ResponsiveDrawer(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+  //declaring some of the hooks
+  const [portfolio, setPortfolio] = useState(true);
+  const [managePortfolio, setManagePortfolio] = useState(false);
+  const [product, setProduct] = useState(false);
+  const [manageProduct, setManageProduct] = useState(false);
+  const [user, setUser] = useState(false);
+  const [manageUser, setManageUser] = useState(false);
+
+  //functions to handle changes on nav bar click
+  let handlePortfolio = (event) => {
+    event.preventDefault();
+    setPortfolio(true);
+    setManagePortfolio(false);
+    setProduct(false);
+    setManageProduct(false);
+    setUser(false);
+    setManageUser(false);
+  };
+
+  let handleManagePortfolio = (event) => {
+    event.preventDefault();
+    setPortfolio(false);
+    setManagePortfolio(true);
+    setProduct(false);
+    setManageProduct(false);
+    setUser(false);
+    setManageUser(false);
+  };
+
+  let handleProduct = (event) => {
+    event.preventDefault();
+    setPortfolio(false);
+    setManagePortfolio(false);
+    setProduct(true);
+    setManageProduct(false);
+    setUser(false);
+    setManageUser(false);
+  };
+
+  let handleManageProduct = (event) => {
+    event.preventDefault();
+    setPortfolio(false);
+    setManagePortfolio(false);
+    setProduct(false);
+    setManageProduct(true);
+    setUser(false);
+    setManageUser(false);
+  };
+
+  let handleUser = (event) => {
+    event.preventDefault();
+    setPortfolio(false);
+    setManagePortfolio(false);
+    setProduct(false);
+    setManageProduct(false);
+    setUser(true);
+    setManageUser(false);
+  };
+
+  let handleManageUser = (event) => {
+    event.preventDefault();
+    setPortfolio(false);
+    setManagePortfolio(false);
+    setProduct(false);
+    setManageProduct(false);
+    setUser(false);
+    setManageUser(true);
+  };
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -71,29 +144,46 @@ function ResponsiveDrawer(props) {
       <Divider />
       <List>
         <ListItem button key="Portfolio">
-        <ListItemIcon>
+          <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
           <ListItemText primary="Portfolio" />
         </ListItem>
-
+        <ListItem button key="Manage Portfolio">
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary="Manage Portfolio" />
+        </ListItem>
         <ListItem button key="Products">
-        <ListItemIcon>
+          <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
           <ListItemText primary="Products" />
         </ListItem>
+        <ListItem button key="Manage Products">
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary="Manage Products" />
+        </ListItem>
         <ListItem button key="Users">
-        <ListItemIcon>
+          <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
           <ListItemText primary="Users" />
+        </ListItem>
+        <ListItem button key="Manage Users">
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary="Manage Users" />
         </ListItem>
       </List>
       <Divider />
       <List>
         <ListItem button key="Home">
-        <ListItemIcon>
+          <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
           <ListItemText primary="Home" />
@@ -134,7 +224,7 @@ function ResponsiveDrawer(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            <span id="heading" >Welcome To Admin Dashboard</span>
+            <span id="heading">Welcome To Admin Dashboard</span>
           </Typography>
         </Toolbar>
       </AppBar>

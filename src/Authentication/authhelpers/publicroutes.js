@@ -8,13 +8,12 @@ const PublicRoute = ({ component: Component, ...rest }) => {
     return (
         <Route
             {...rest}
-            render={(props) => isAuthenticated() ? (
+            render={(props) => isAuthenticated() && isAuthenticated().user.role===0 ? (
                 <Component {...props} />
             ) : (
                     <Redirect to="/" />
                 )
             }
-
         />
     )
 }
