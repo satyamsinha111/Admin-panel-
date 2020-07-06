@@ -8,14 +8,30 @@ html {
   background-color: #218f76 !important;
 }
 
-.textbox-styling
-{
+.hidden {
+  display: none;
+}
+.button {
+  border: 1px solid #333;
+  padding: 10px;
+  margin: 5px;
+  background: #777;
+  color: #fff;
+  width: 75px;
+}
+
+.button:hover {
+  background: #333;
+  cursor: pointer;
+}
+
+.textbox-styling {
   border: none;
-  border-bottom: 1px solid #616C6F;
+  border-bottom: 1px solid #74797a;
   border-radius: 0px;
 }
 
-#heading{
+#heading {
   font-family: "Arvo", serif !important;
   font-weight: bolder;
   font-size: 13px;
@@ -108,25 +124,40 @@ body {
   .adjust-address-font {
     font-size: 10px;
   }
+  .header {
+    font-size: 10px !important;
+  }
 }
 @media only screen and (max-width: 282px) {
   .adjust-address-font {
     font-size: 5px;
+  }
+  .header {
+    font-size: 5px !important;
   }
 }
 @media only screen and (max-width: 403px) {
   .adjust-credit-font {
     font-size: 10px;
   }
+  .header {
+    font-size: 10px !important;
+  }
 }
 @media only screen and (max-width: 269px) {
   .adjust-credit-font {
     font-size: 5px;
   }
+  .header {
+    font-size: 5px !important;
+  }
 }
 @media only screen and (max-width: 512px) {
   .masthead-heading {
     font-size: large;
+  }
+  .header {
+    font-size: large !important;
   }
 }
 
@@ -146,6 +177,9 @@ body {
   .masthead-avatar {
     width: 40%;
     height: auto;
+  }
+  .header {
+    font-size: 10px !important;
   }
 }
 
@@ -196,6 +230,9 @@ body {
     letter-spacing: 2px;
     transition: 0.4s;
   }
+  .header {
+    font-size: 10px !important;
+  }
 }
 
 @media only screen and (max-width: 315px) {
@@ -243,6 +280,10 @@ body {
     font-weight: bolder;
     letter-spacing: 2px;
     transition: 0.4s;
+  }
+
+  .header {
+    font-size: 10px !important;
   }
 }
 
@@ -298,24 +339,22 @@ body {
   color: #99aaab !important;
 }
 
-
-.Tool_Bar{
+.Tool_Bar {
   height: 64px;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 7px;
-  background-color: #10A881;
+  background-color: #10a881;
   color: white;
 }
-.BackgroundColor{
-  background-color: #10A881 !important;
+.BackgroundColor {
+  background-color: #10a881 !important;
 }
-#company{
+#company {
   padding: 20px;
   text-transform: uppercase;
   font-weight: bolder;
   font-size: 13px;
   letter-spacing: 3px;
-  
 }

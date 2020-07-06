@@ -16,14 +16,15 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Signout } from "../Authentication/authhelpers/authhelper";
-const drawerWidth = 220;
 import Portfolio from "./Admin-Components/Portfolio";
 import ManagePortfolio from "./Admin-Components/Manage-Product";
 import Product from "./Admin-Components/Product";
 import ManageProduct from "./Admin-Components/Manage-Product";
 import User from "./Admin-Components/User";
 import ManageUser from "./Admin-Components/Manage-User";
+import { Redirect } from "react-router-dom";
 
+const drawerWidth = 220;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -70,6 +71,7 @@ function ResponsiveDrawer(props) {
   const [manageProduct, setManageProduct] = useState(false);
   const [user, setUser] = useState(false);
   const [manageUser, setManageUser] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
   //functions to handle changes on nav bar click
   let handlePortfolio = (event) => {
@@ -143,37 +145,37 @@ function ResponsiveDrawer(props) {
       </div>
       <Divider />
       <List>
-        <ListItem button key="Portfolio">
+        <ListItem button key="Portfolio" onClick={handlePortfolio}>
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
           <ListItemText primary="Portfolio" />
         </ListItem>
-        <ListItem button key="Manage Portfolio">
+        <ListItem button key="Manage Portfolio" onClick={handleManagePortfolio}>
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
           <ListItemText primary="Manage Portfolio" />
         </ListItem>
-        <ListItem button key="Products">
+        <ListItem button key="Products" onClick={handleProduct}>
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
           <ListItemText primary="Products" />
         </ListItem>
-        <ListItem button key="Manage Products">
+        <ListItem button key="Manage Products" onClick={handleManageProduct}>
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
           <ListItemText primary="Manage Products" />
         </ListItem>
-        <ListItem button key="Users">
+        <ListItem button key="Users" onClick={handleUser}>
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
           <ListItemText primary="Users" />
         </ListItem>
-        <ListItem button key="Manage Users">
+        <ListItem button key="Manage Users" onClick={handleManageUser}>
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
@@ -182,13 +184,27 @@ function ResponsiveDrawer(props) {
       </List>
       <Divider />
       <List>
-        <ListItem button key="Home">
+        <ListItem
+          button
+          key="Home"
+          onClick={() => {
+            setRedirect(true);
+          }}
+        >
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
-        <ListItem button key="Logout">
+        <ListItem
+          button
+          key="Logout"
+          onClick={() => {
+            Signout(() => {
+              setRedirect(true);
+            });
+          }}
+        >
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
@@ -224,7 +240,9 @@ function ResponsiveDrawer(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            <span id="heading">Welcome To Admin Dashboard</span>
+            <span id="heading" className="header">
+              Welcome To Admin Dashboard
+            </span>
           </Typography>
         </Toolbar>
       </AppBar>
@@ -261,9 +279,13 @@ function ResponsiveDrawer(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <div>
-          <h1>Content</h1>
-        </div>
+        {redirect && <Redirect to="/" />}
+        {portfolio && <Portfolio />}
+        {managePortfolio && <ManagePortfolio />}
+        {product && <Product />}
+        {manageProduct && <ManageProduct />}
+        {user && <User />}
+        {manageUser && <ManageUser />}
       </main>
     </div>
   );
