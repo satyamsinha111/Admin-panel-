@@ -1,71 +1,133 @@
 import React, { useState, useEffect } from "react";
-import {} from "../helper/adminhelper";
+import { CreatePortfolio } from "../helper/adminhelper";
 import $ from "jquery";
+import { isAuthenticated } from "../../Authentication/authhelpers/authhelper";
+
 const Portfolio = (props) => {
-  let [file, SetFile] = useState({});
-  let [name, setName] = useState("");
-  let [link, setLink] = useState("");
-  let [desc, setDesc] = useState("");
-  let [imgName, setImgName] = useState("");
+  const { user, token } = isAuthenticated();
+  let [values, setValues] = useState({
+    portfolio_name: "",
+    portfolio_link: "",
+    portfolio_description: "",
+    photo: "",
+    success: false,
+    redirect: false,
+    formData: "",
+    loading: false,
+    error: "",
+    success: false,
+  });
 
-  let UploadFile = (event) => {
-    event.preventDefault();
-    $("#uploadFile").click();
-    console.log(document.getElementById("uploadFile").files);
-    console.log(document.getElementById("uploadFile").files[0]);
-  };
+  const {
+    portfolio_name,
+    portfolio_link,
+    portfolio_description,
+    photo,
+    success,
+    redirect,
+    formData,
+    error,
+    loading,
+  } = values;
 
-  let handleFile = (event) => {
-    event.preventDefault();
-    SetFile(event.target.value);
-  };
-
-  let handleName = (event) => {
-    event.preventDefault();
-    setName(event.target.value);
-  };
-  let handleLink = (event) => {
-    event.preventDefault();
-    setLink(event.target.value);
-  };
-
-  let handleDesc = (event) => {
-    event.preventDefault();
-    setDesc(event.target.value);
+  let preload = () => {
+    setValues({ ...values, formData: new FormData() });
   };
 
   useEffect(() => {
-    console.log("hello");
-    $("#uploadFile").click();
+    preload();
   }, []);
+  let UploadFile = (event) => {
+    event.preventDefault();
+    $("#uploadFile").click();
+  };
+
+  const handleChange = (name) => (event) => {
+    const value = name == "photo" ? event.target.files[0] : event.target.value;
+    formData.set(name, value);
+    setValues({ ...values, [name]: value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const userId = user.userId;
+    const authToken = token;
+    setValues({ ...values, success: false, loading: true });
+    CreatePortfolio(userId, token, formData).then((data) => {
+      if (data.status === 400) {
+        setValues({
+          ...values,
+          success: false,
+          loading: false,
+          error: "Bad request",
+        });
+        setTimeout(() => {
+          setValues({ ...values, error: "" });
+        }, 5000);
+        return;
+      }
+      if (data.error) {
+        console.log("Error");
+        setValues({
+          ...values,
+          success: false,
+          loading: false,
+          error: data.error,
+        });
+      } else {
+        console.log("Success");
+        setValues({
+          ...values,
+          success: true,
+          error: "",
+          loading: false,
+        });
+      }
+      setTimeout(() => {
+        console.log("Interval");
+        setValues({
+          ...values,
+          portfolio_name: "",
+          portfolio_link: "",
+          portfolio_description: "",
+          photo: null,
+          error: "",
+        });
+      }, 5000);
+      //setValues({ ...values, redirect: true, formData: new FormData() });
+    });
+  };
 
   return (
     <div>
       <form className="container" method="POST" encType="multipart/form-data">
-        <div className="row">
-          <div className="col-md-8 col-sm-12">
-            <input
-              type="text"
-              className="form-control mt-3"
-              placeholder="Please upload your amazing portfolio image"
-              value={imgName}
-              disabled
-              onChange={(event) => {
-                console.log("hello");
-                console.log(event.target);
-              }}
-            />
+        {loading && (
+          <div className="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
           </div>
-          <div className="col-md-4 col-sm-12">
+        )}
+        {success && (
+          <div class="alert alert-success" role="alert">
+            Portfolio added successfully
+          </div>
+        )}
+        {error && (
+          <div class="alert alert-danger" role="alert">
+            {error}
+          </div>
+        )}
+
+        <div className="row">
+          <div className="col-12">
             <input
               type="file"
               className="hidden"
               id="uploadFile"
               name="photo"
               accept="image"
-              onClick={(event) => {
-                console.log(event.target.files);
-              }}
+              onChange={handleChange("photo")}
             />
             <div
               className="btn btn-block btn-outline-info mt-3"
@@ -83,6 +145,8 @@ const Portfolio = (props) => {
                 type="text"
                 className="form-control textbox-styling "
                 placeholder="Please enter the name of your project"
+                value={portfolio_name}
+                onChange={handleChange("portfolio_name")}
               />
             </div>
           </div>
@@ -94,6 +158,8 @@ const Portfolio = (props) => {
                 type="text"
                 className="form-control textbox-styling "
                 placeholder="Please enter the link of your project"
+                value={portfolio_link}
+                onChange={handleChange("portfolio_link")}
               />
             </div>
           </div>
@@ -105,6 +171,8 @@ const Portfolio = (props) => {
                 className="form-control textbox-styling "
                 placeholder="Enter the project description"
                 rows="3"
+                onChange={handleChange("portfolio_description")}
+                value={portfolio_description}
               ></textarea>
             </div>
           </div>
@@ -112,13 +180,19 @@ const Portfolio = (props) => {
         <div className="row">
           <div className="col-12">
             <div class="form-group p-3">
-              <button type="button" class="btn btn-block btn-outline-dark">
+              <button
+                type="button"
+                class="btn btn-block btn-outline-dark"
+                onClick={handleSubmit}
+              >
                 Submit
               </button>
             </div>
           </div>
         </div>
       </form>
+      {/* <p>{portfolio_description}</p>
+      <p>{JSON.stringify(values)}</p> */}
     </div>
   );
 };

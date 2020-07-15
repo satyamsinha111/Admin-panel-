@@ -1,5 +1,23 @@
 {
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
-    "editor.formatOnType": true
+    "editor.formatOnType": true,
+    "workbench.colorCustomizations": {
+        "[Abyss]": {
+            "activityBar.background": "#cc7171",
+            "activityBar.foreground": "#0f0b0b",
+            "badge.background": "#e4dada",
+            "badge.foreground": "#141414",
+            "activityBarBadge.background": "#e7e2e2",
+            "activityBarBadge.foreground": "#141414",
+            "sideBar.border": "#f1eded",
+            "editor.background": "#19191b",
+            "breadcrumb.background": "#3a2f2f",
+            "sideBar.background": "#072b44",
+            "editor.selectionBackground": "#161313",
+            "editor.selectionForeground": "#f8f6f6",
+            "sideBarSectionHeader.background": "#424668",
+            "statusBar.border": "#fffefe"
+        }
+    }
 }

@@ -17,7 +17,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Signout } from "../Authentication/authhelpers/authhelper";
 import Portfolio from "./Admin-Components/Portfolio";
-import ManagePortfolio from "./Admin-Components/Manage-Product";
+import ManagePortfolio from "./Admin-Components/Manage-Portfolio";
 import Product from "./Admin-Components/Product";
 import ManageProduct from "./Admin-Components/Manage-Product";
 import User from "./Admin-Components/User";
